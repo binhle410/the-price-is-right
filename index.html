@@ -20,6 +20,7 @@
 
     <script src="js/currencyFormatter.min.js"></script>
 
+
 </head>
 <body>
 <!-- Fixed navbar -->
@@ -36,8 +37,8 @@
             <a class="navbar-brand" href="#">Sản phẩm</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">01</a></li>
+            <ul id="menu_products" class="nav navbar-nav">
+
 
                 <!--<li class="dropdown">-->
                 <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
@@ -61,7 +62,7 @@
 <div class="container theme-showcase" role="main">
     <div class="row">
         <div class="col-xs-8 text-center">
-            <img width=100%" src="img/cover.jpg"/>
+            <img id="product_image" width=100%" src="img/cover.jpg"/>
         </div>
         <div class="col-xs-4">
             <div class="row">
@@ -100,6 +101,55 @@
 <script>
     (function ($) {
 
+        var products = [
+            {
+                'id': 1,
+                'src': 'prod/01.jpg',
+                'name': 'Product 01',
+                'active': false,
+                'price': 3000
+            }
+            ,
+            {
+                'id': 2,
+                'src': 'prod/02.jpg',
+                'name': 'Product 02',
+                'active': false,
+                'price': 6000
+            }
+            ,
+            {
+                'id': 3,
+                'src': 'prod/03.jpg',
+                'name': 'Product 03',
+                'active': false,
+                'price': 9000
+            }
+        ]
+
+        var activeProduct = null;
+
+        $.each(products, function (i, _prod) {
+            if (_prod.active == true) {
+                activeClass = ' class = "active" '
+                activeProduct = _prod;
+                $('#product_image').attr('src', 'img/' + _prod.src);
+            } else {
+                activeClass = ''
+            }
+            _html = '<li' + activeClass + '><a href="#" id="product_' + _prod.id + '">' + _prod.name + '</a></li>';
+            $('#menu_products').append(_html);
+            $('#product_' + _prod.id).on('click', function () {
+                $.each(products, function (i, __prod) {
+                    if (__prod.id == _prod.id) {
+                        activeProduct = __prod;
+                        $('#product_image').attr('src', 'img/' + __prod.src);
+                    }
+                });
+            });
+
+        })
+
         var currencyFormatterParams =
             {
                 currency: 'VND', 			// If currency is not supplied, defaults to USD
@@ -122,13 +172,29 @@
 
                 });
         }
-
+        var winner = null;
         findWinner = function (guesser) {
+            _winner = null;
+            _wonPrice = 0;
             $.each(guesser, function (i, _guess) {
-//                    console.log(i);
-//                    console.log(guess);
-
+                if (_guess.price <= activeProduct.price) {
+                    if (_guess.price > _wonPrice) {
+                        _wonPrice = _guess.price;
+                        _winner = _guess;
+                    }
+                }
             })
+            if (_wonPrice == 0) {
+                $.each(guesser, function (i, _guess) {
+                    if (_guess.price > activeProduct.price) {
+                        if (_guess.price < _wonPrice) {
+                            _wonPrice = _guess.price;
+                            _winner = _guess;
+                        }
+                    }
+                })
+            }
+            return _winner;
         }
 
 //        $('#price').formatter({
@@ -177,28 +243,14 @@
         /* OnLoad Page */
         $(document).ready(function ($) {
             if (typeof(Storage) !== "undefined") {
-                // Code for localStorage/sessionStorage.
-//                localStorage.clear();
-
                 var guesser = JSON.parse(localStorage.getItem('guesser'));
                 console.log(guesser);
                 $guessList = $('#guess-list');
                 if ($.isArray(guesser)) {
-//                    alert('array');
+
                 } else {
-//                    dump(guesser)
-//                    guesser = $.map(guesser, function (value, index) {
-//                        return [value];
-//                    });
                 }
-//                if ($.isArray(guesser)) {
-//                    alert('array');
-//                } else {
-//                    alert('no not array')
-//                }
                 $.each(guesser, function (i, guess) {
-//                    console.log(i);
-//                    console.log(guess);
                     appendGuess($guessList, guess);
                 })
 
@@ -207,11 +259,14 @@
             }
 
             $('#check-btn').click(function (e) {
-                alert('kiem tra')
+                var guesser = JSON.parse(localStorage.getItem('guesser'));
+                winner = findWinner(guesser);
+                alert(winner.name + '  ' + winner.price);
             })
 
             $('#clear-btn').click(function (e) {
-                localStorage.clear();
+                localStorage.setItem('guesser', JSON.stringify(new Array()));
+                $guessList.empty();
             })
 
             $('#name').keypress(function (e) {
@@ -240,6 +295,7 @@
                     appendGuess($guessList, guess);
                     $('#name').val('');
                     $('#price').val('');
+                    $('#name').focus();
 //                    formatMoney();
                 }
             });
