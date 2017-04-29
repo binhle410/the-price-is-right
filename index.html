@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="js/jquery.formatter.min.js"></script>
+
+    <script src="js/currencyFormatter.min.js"></script>
+
+</head>
+<body>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Sản phẩm</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">01</a></li>
+
+                <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
+                <!--aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li><a href="#">Action</a></li>-->
+                <!--<li><a href="#">Another action</a></li>-->
+                <!--<li><a href="#">Something else here</a></li>-->
+                <!--<li role="separator" class="divider"></li>-->
+                <!--<li class="dropdown-header">Nav header</li>-->
+                <!--<li><a href="#">Separated link</a></li>-->
+                <!--<li><a href="#">One more separated link</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<div class="container theme-showcase" role="main">
+    <div class="row">
+        <div class="col-xs-8 text-center">
+            <img width=100%" src="img/cover.jpg"/>
+        </div>
+        <div class="col-xs-4">
+            <div class="row">
+                <div class="col-xs-12">
+                    <table width="100%" border="0px">
+                        <tr>
+                            <td style="padding-right: 5px;">
+                                <input type="text" class="form-control" id="name"/>
+                            </td>
+                            <td style="padding-right: 5px;">
+                                <input type="text" class="form-control" id="price"/>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" id="check-btn">Kiểm tra</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-default" id="clear-btn">Clear</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
+            <div class="row" id="guess-list">
+            </div>
+        </div>
+    </div>
+
+
+</div> <!-- /container -->
+
+<script>
+    (function ($) {
+
+        var currencyFormatterParams =
+            {
+                currency: 'VND', 			// If currency is not supplied, defaults to USD
+                symbol: 'k',			// Overrides the currency's default symbol
+                locale: 'vi',			// Overrides the currency's default locale (see supported locales)
+                decimal: ',',			// Overrides the locale's decimal character
+                group: '.',			// Overrides the locale's group character (thousand separator)
+                pattern: '#,##0 !'		// Overrides the locale's default display pattern
+
+                // The pattern follows standard unicode currency pattern notation.
+                // comma = group separator, dot = decimal separator, exclamation = currency symbol
+            }
+
+        var currencyFormatter = OSREC.CurrencyFormatter.getFormatter(currencyFormatterParams);
+
+        formatMoney = function () {
+            OSREC.CurrencyFormatter.formatAll(
+                {
+                    selector: '.money',
+
+                });
+        }
+
+        findWinner = function (guesser) {
+            $.each(guesser, function (i, _guess) {
+//                    console.log(i);
+//                    console.log(guess);
+
+            })
+        }
+
+//        $('#price').formatter({
+//            'pattern': '{{999}},{{999}}',
+//        });
+
+        function dump(obj) {
+            var out = '';
+            for (var i in obj) {
+                out += i + ": " + obj[i] + "\n";
+            }
+
+            alert(out);
+
+            // or, if you wanted to avoid alerts...
+
+            var pre = document.createElement('pre');
+            pre.innerHTML = out;
+            document.body.appendChild(pre)
+        }
+
+        appendGuess = function ($guessList, guess) {
+            _html = '<div id="' + guess.id + '"><h3>' + guess.name + ' - <span>' + currencyFormatter(guess.price) + '</span> ';
+            _html += ' <button data-id="' + guess.id + '" id="button_' + guess.id + '"  type="button" class="btn btn-default" aria-label="Left Align"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
+            _html += '</h3>';
+            _html += '</div>';
+            $guessList.append(_html);
+            $('#button_' + guess.id).on('click', function () {
+                $('#' + guess.id).hide();
+                var guesser = JSON.parse(localStorage.getItem('guesser'));
+                $.each(guesser, function (i, _guess) {
+//                    console.log(i);
+//                    console.log(guess);
+                    if (guess.id == _guess.id) {
+                        guesser.splice(i, 1);
+                        localStorage.setItem('guesser', JSON.stringify(guesser));
+                    }
+                })
+
+            });
+        }
+
+        /* ----------------------------------------------- */
+        /* ----------------------------------------------- */
+//        https://osrec.github.io/currencyFormatter.js/
+        /* OnLoad Page */
+        $(document).ready(function ($) {
+            if (typeof(Storage) !== "undefined") {
+                // Code for localStorage/sessionStorage.
+//                localStorage.clear();
+
+                var guesser = JSON.parse(localStorage.getItem('guesser'));
+                console.log(guesser);
+                $guessList = $('#guess-list');
+                if ($.isArray(guesser)) {
+//                    alert('array');
+                } else {
+//                    dump(guesser)
+//                    guesser = $.map(guesser, function (value, index) {
+//                        return [value];
+//                    });
+                }
+//                if ($.isArray(guesser)) {
+//                    alert('array');
+//                } else {
+//                    alert('no not array')
+//                }
+                $.each(guesser, function (i, guess) {
+//                    console.log(i);
+//                    console.log(guess);
+                    appendGuess($guessList, guess);
+                })
+
+            } else {
+                // Sorry! No Web Storage support..
+            }
+
+            $('#check-btn').click(function (e) {
+                alert('kiem tra')
+            })
+
+            $('#clear-btn').click(function (e) {
+                localStorage.clear();
+            })
+
+            $('#name').keypress(function (e) {
+                if (e.which == 13) {
+
+                }
+            });
+
+            $('#price').keypress(function (e) {
+                if (e.which == 13) {
+                    var guesser = JSON.parse(localStorage.getItem('guesser'));
+                    if (guesser == 'undefined' || guesser === null || guesser === 'null') {
+                        guesser = new Array();
+                        console.log('initiating a new array object for guesser');
+                    }
+
+                    var guess = new Object();
+                    guess.name = $('#name').val();
+                    guess.price = $('#price').val();
+                    guess.id = Math.floor((Math.random() * 1000) + 1) + '_' + Math.floor((Math.random() * 1000) + 1) + '_' + Math.floor((Math.random() * 1000) + 1) + '_' + Math.floor((Math.random() * 1000) + 1);
+
+                    guesser.push(guess);
+                    localStorage.setItem('guesser', JSON.stringify(guesser));
+
+                    $guessList = $('#guess-list');
+                    appendGuess($guessList, guess);
+                    $('#name').val('');
+                    $('#price').val('');
+//                    formatMoney();
+                }
+            });
+        });
+        /* OnLoad Window */
+        var init = function () {
+
+        };
+        window.onload = init;
+
+    })(jQuery);
+
+</script>
+</body>
+</html>
