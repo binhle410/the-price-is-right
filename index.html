@@ -40,19 +40,19 @@
             <ul id="menu_products" class="nav navbar-nav">
 
 
-                <!--<li class="dropdown">-->
-                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
-                <!--aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--<li><a href="#">Action</a></li>-->
-                <!--<li><a href="#">Another action</a></li>-->
-                <!--<li><a href="#">Something else here</a></li>-->
-                <!--<li role="separator" class="divider"></li>-->
-                <!--<li class="dropdown-header">Nav header</li>-->
-                <!--<li><a href="#">Separated link</a></li>-->
-                <!--<li><a href="#">One more separated link</a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="active"><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -107,7 +107,9 @@
                 'src': 'prod/01.jpg',
                 'name': 'Product 01',
                 'active': false,
-                'price': 3000
+                'price': 3000,
+                'parent': null,
+                'hasChildren': true
             }
             ,
             {
@@ -115,7 +117,9 @@
                 'src': 'prod/02.jpg',
                 'name': 'Product 02',
                 'active': false,
-                'price': 6000
+                'price': 6000,
+                'parent': null,
+                'hasChildren': false
             }
             ,
             {
@@ -123,7 +127,9 @@
                 'src': 'prod/03.jpg',
                 'name': 'Product 03',
                 'active': false,
-                'price': 9000
+                'price': 9000,
+                'parent': 1,
+                'hasChildren': false
             }
         ]
 
@@ -137,16 +143,25 @@
             } else {
                 activeClass = ''
             }
-            _html = '<li id="menu_item_' + _prod.id + '"' + ' class = "menu-item ' + activeClass + '" ' + '><a href="#" id="product_' + _prod.id + '">' + _prod.name + '</a></li>';
+            if (_prod.hasChildren == false) {
+                _itemClass = 'menu-item';
+                _html = '<li id="menu_item_' + _prod.id + '"' + ' class = "menu-item ' + activeClass + '" ' + '><a href="#" id="product_' + _prod.id + '">' + _prod.name + '</a></li>';
+            } else {
+                _itemClass = 'dropdown menu-item';
+                _html = '<li id="menu_item_' + _prod.id + '"' + ' class = "dropdown menu-item ' + activeClass + '" ' + '><a href="#" id="product_' + _prod.id + '">' + _prod.name + '</a></li>';
+            }
             console.log(_html);
-            $('#menu_products').append(_html);
+            if (_prod.parent == null) {
+                $('#menu_products').append(_html);
+            }
             $('#product_' + _prod.id).on('click', function () {
                 $.each(products, function (i, __prod) {
                     if (__prod.id == _prod.id) {
                         activeProduct = __prod;
                         $('#product_image').attr('src', 'img/' + __prod.src);
-                        $('.menu-item').attr('class', 'menu-item');
-                        $('#menu_item_' + _prod.id).attr('class', 'menu-item active');
+                        $('.menu-item').removeClass('active');
+                        $('#menu_item_' + _prod.id).addClass(' active');
+                        //                        $('#menu_item_' + _prod.id).attr('class', _itemClass + ' active');
                     }
                 });
             });
@@ -268,7 +283,9 @@
             $('#check-btn').click(function (e) {
                 var guesser = JSON.parse(localStorage.getItem('guesser'));
                 winner = findWinner(guesser);
-                alert(winner.name + '  ' + winner.price);
+//                alert(winner.name + '  ' + winner.price);
+                $('#modal_body').html('<h3><strong>' + winner.name + '</strong> đã dự đoán với giá: ' + winner.price + '.000 VNĐ </h3>');
+                $('#myModal').modal('show');
             })
 
             $('#clear-btn').click(function (e) {
@@ -316,5 +333,24 @@
     })(jQuery);
 
 </script>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Xin chúc mừng</h4>
+            </div>
+            <div class="modal-body" id="modal_body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 </html>
