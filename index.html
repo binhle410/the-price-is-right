@@ -38,21 +38,20 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul id="menu_products" class="nav navbar-nav">
-
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li class="active"><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
+                z
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
+                       <!--aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li class="active"><a href="#">Action</a></li>-->
+                        <!--<li><a href="#">Another action</a></li>-->
+                        <!--<li><a href="#">Something else here</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li class="dropdown-header">Nav header</li>-->
+                        <!--<li><a href="#">Separated link</a></li>-->
+                        <!--<li><a href="#">One more separated link</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -105,7 +104,7 @@
             {
                 'id': 1,
                 'src': 'prod/01.jpg',
-                'name': 'Product 01',
+                'name': 'Giải Khuyến Khích',
                 'active': false,
                 'price': 3000,
                 'parent': null,
@@ -115,20 +114,120 @@
             {
                 'id': 2,
                 'src': 'prod/02.jpg',
-                'name': 'Product 02',
+                'name': 'Giải Ba',
                 'active': false,
                 'price': 6000,
                 'parent': null,
-                'hasChildren': false
+                'hasChildren': true
             }
             ,
             {
                 'id': 3,
                 'src': 'prod/03.jpg',
-                'name': 'Product 03',
+                'name': 'Giải Nhì',
+                'active': false,
+                'price': 9000,
+                'parent': null,
+                'hasChildren': true
+            }
+            ,
+            {
+                'id': 4,
+                'src': 'prod/01.jpg',
+                'name': 'Giải Nhất',
+                'active': false,
+                'price': 9000,
+                'parent': null,
+                'hasChildren': false
+            }
+            ,
+            {
+                'id': 5,
+                'src': 'prod/khuyen-khich/01.png',
+                'name': 'Sản phẩm 1',
                 'active': false,
                 'price': 9000,
                 'parent': 1,
+                'hasChildren': false
+            }
+            ,
+            {
+                'id': 6,
+                'src': 'prod/khuyen-khich/02.png',
+                'name': 'Sản phẩm 2',
+                'active': false,
+                'price': 9000,
+                'parent': 1,
+                'hasChildren': false
+            }
+            ,
+            {
+                'id': 7,
+                'src': 'prod/khuyen-khich/03.png',
+                'name': 'Sản phẩm 3',
+                'active': false,
+                'price': 9000,
+                'parent': 1,
+                'hasChildren': false
+            }
+            ,
+            {
+                'id': 8,
+                'src': 'prod/khuyen-khich/04.png',
+                'name': 'Sản phẩm 4',
+                'active': false,
+                'price': 9000,
+                'parent': 1,
+                'hasChildren': false
+            }
+            ,
+            {
+                'id': 9,
+                'src': 'prod/khuyen-khich/05.png',
+                'name': 'Sản phẩm 5',
+                'active': false,
+                'price': 9000,
+                'parent': 1,
+                'hasChildren': false
+            }
+            ,
+            {
+                'id': 10,
+                'src': 'prod/giai-ba/01.png',
+                'name': 'Sản phẩm 1',
+                'active': false,
+                'price': 9000,
+                'parent': 2,
+                'hasChildren': false
+            }
+            ,
+            {
+                'id': 11,
+                'src': 'prod/giai-ba/02.png',
+                'name': 'Sản phẩm 2',
+                'active': false,
+                'price': 9000,
+                'parent': 2,
+                'hasChildren': false
+            }
+            ,
+            {
+                'id': 13,
+                'src': 'prod/giai-nhi/01.png',
+                'name': 'Sản phẩm 1',
+                'active': false,
+                'price': 9000,
+                'parent': 3,
+                'hasChildren': false
+            }
+            ,
+            {
+                'id': 14,
+                'src': 'prod/giai-nhi/02.png',
+                'name': 'Sản phẩm 2',
+                'active': false,
+                'price': 9000,
+                'parent': 3,
                 'hasChildren': false
             }
         ]
@@ -148,24 +247,28 @@
                 _html = '<li id="menu_item_' + _prod.id + '"' + ' class = "menu-item ' + activeClass + '" ' + '><a href="#" id="product_' + _prod.id + '">' + _prod.name + '</a></li>';
             } else {
                 _itemClass = 'dropdown menu-item';
-                _html = '<li id="menu_item_' + _prod.id + '"' + ' class = "dropdown menu-item ' + activeClass + '" ' + '><a href="#" id="product_' + _prod.id + '">' + _prod.name + '</a></li>';
+                _html = '<li id="menu_item_' + _prod.id + '"' + ' class = "dropdown ' + activeClass + '" ' + '><a aria-expanded="false" role="button" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle" href="#" id="product_' + _prod.id + '">' + _prod.name + '<span class="caret"></span></a>';
+                _html += '<ul class="dropdown-menu" id="sub_menu_item_' + _prod.id + '">  ' + ' </ul> </li>';
             }
             console.log(_html);
             if (_prod.parent == null) {
                 $('#menu_products').append(_html);
+            } else {
+                $('#sub_menu_item_' + _prod.parent).append(_html);
             }
-            $('#product_' + _prod.id).on('click', function () {
-                $.each(products, function (i, __prod) {
-                    if (__prod.id == _prod.id) {
-                        activeProduct = __prod;
-                        $('#product_image').attr('src', 'img/' + __prod.src);
-                        $('.menu-item').removeClass('active');
-                        $('#menu_item_' + _prod.id).addClass(' active');
-                        //                        $('#menu_item_' + _prod.id).attr('class', _itemClass + ' active');
-                    }
+            if (_prod.hasChildren == false) {
+                $('#product_' + _prod.id).on('click', function () {
+                    $.each(products, function (i, __prod) {
+                        if (__prod.id == _prod.id) {
+                            activeProduct = __prod;
+                            $('#product_image').attr('src', 'img/' + __prod.src);
+                            $('.menu-item').removeClass('active');
+                            $('#menu_item_' + _prod.id).addClass(' active');
+                            //                        $('#menu_item_' + _prod.id).attr('class', _itemClass + ' active');
+                        }
+                    });
                 });
-            });
-
+            }
         })
 
         var currencyFormatterParams =
@@ -175,7 +278,7 @@
                 locale: 'vi',			// Overrides the currency's default locale (see supported locales)
                 decimal: ',',			// Overrides the locale's decimal character
                 group: '.',			// Overrides the locale's group character (thousand separator)
-                pattern: '#,##0 !'		// Overrides the locale's default display pattern
+                pattern: '#,###.'		// Overrides the locale's default display pattern
 
                 // The pattern follows standard unicode currency pattern notation.
                 // comma = group separator, dot = decimal separator, exclamation = currency symbol
@@ -239,7 +342,7 @@
         }
 
         appendGuess = function ($guessList, guess) {
-            _html = '<div id="' + guess.id + '"><h3>' + guess.name + ' - <span>' + currencyFormatter(guess.price) + '</span> ';
+            _html = '<div id="' + guess.id + '"><h3>' + guess.name + ' - <span>' + currencyFormatter(guess.price) + ' k</span> ';
             _html += ' <button data-id="' + guess.id + '" id="button_' + guess.id + '"  type="button" class="btn btn-default" aria-label="Left Align"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
             _html += '</h3>';
             _html += '</div>';
@@ -284,7 +387,7 @@
                 var guesser = JSON.parse(localStorage.getItem('guesser'));
                 winner = findWinner(guesser);
 //                alert(winner.name + '  ' + winner.price);
-                $('#modal_body').html('<h3><strong>' + winner.name + '</strong> đã dự đoán với giá: ' + winner.price + '.000 VNĐ </h3>');
+                $('#modal_body').html('<h3><strong>' + winner.name + '</strong> đã dự đoán với giá: ' + currencyFormatter(winner.price) + '.000 VNĐ </h3>');
                 $('#myModal').modal('show');
             })
 
@@ -347,7 +450,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
