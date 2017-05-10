@@ -40,17 +40,17 @@
             <ul id="menu_products" class="nav navbar-nav">
                 z
                 <!--<li class="dropdown">-->
-                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
-                       <!--aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-                    <!--<ul class="dropdown-menu">-->
-                        <!--<li class="active"><a href="#">Action</a></li>-->
-                        <!--<li><a href="#">Another action</a></li>-->
-                        <!--<li><a href="#">Something else here</a></li>-->
-                        <!--<li role="separator" class="divider"></li>-->
-                        <!--<li class="dropdown-header">Nav header</li>-->
-                        <!--<li><a href="#">Separated link</a></li>-->
-                        <!--<li><a href="#">One more separated link</a></li>-->
-                    <!--</ul>-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
+                <!--aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li class="active"><a href="#">Action</a></li>-->
+                <!--<li><a href="#">Another action</a></li>-->
+                <!--<li><a href="#">Something else here</a></li>-->
+                <!--<li role="separator" class="divider"></li>-->
+                <!--<li class="dropdown-header">Nav header</li>-->
+                <!--<li><a href="#">Separated link</a></li>-->
+                <!--<li><a href="#">One more separated link</a></li>-->
+                <!--</ul>-->
                 <!--</li>-->
             </ul>
         </div><!--/.nav-collapse -->
@@ -61,6 +61,9 @@
 <div class="container theme-showcase" role="main">
     <div class="row">
         <div class="col-xs-8 text-center">
+            <div class="hidden">
+                <audio id="audioPlayer"></audio>
+            </div>
             <img id="product_image" width="100%" src="img/cover.jpg"/>
         </div>
         <div class="col-xs-4">
@@ -133,10 +136,10 @@
             ,
             {
                 'id': 4,
-                'src': 'prod/01.jpg',
-                'name': 'Giải Nhất',
+                'src': 'prod/giai-nhat.png',
+                'name': 'Giải Nhất - Combo đặc biệt',
                 'active': false,
-                'price': 9000,
+                'price': 2205000,
                 'parent': null,
                 'hasChildren': false
             }
@@ -144,9 +147,9 @@
             {
                 'id': 5,
                 'src': 'prod/khuyen-khich/01.png',
-                'name': 'Sản phẩm 1',
+                'name': 'Combo No bụng',
                 'active': false,
-                'price': 9000,
+                'price': 306800,
                 'parent': 1,
                 'hasChildren': false
             }
@@ -154,9 +157,9 @@
             {
                 'id': 6,
                 'src': 'prod/khuyen-khich/02.png',
-                'name': 'Sản phẩm 2',
+                'name': 'Combo Thơm tho',
                 'active': false,
-                'price': 9000,
+                'price': 316000,
                 'parent': 1,
                 'hasChildren': false
             }
@@ -164,9 +167,9 @@
             {
                 'id': 7,
                 'src': 'prod/khuyen-khich/03.png',
-                'name': 'Sản phẩm 3',
+                'name': 'Combo Gia vị',
                 'active': false,
-                'price': 9000,
+                'price': 310600,
                 'parent': 1,
                 'hasChildren': false
             }
@@ -174,9 +177,9 @@
             {
                 'id': 8,
                 'src': 'prod/khuyen-khich/04.png',
-                'name': 'Sản phẩm 4',
+                'name': 'Combo Giặt giũ',
                 'active': false,
-                'price': 9000,
+                'price': 281000,
                 'parent': 1,
                 'hasChildren': false
             }
@@ -184,9 +187,9 @@
             {
                 'id': 9,
                 'src': 'prod/khuyen-khich/05.png',
-                'name': 'Sản phẩm 5',
+                'name': 'Combo Bảo vệ da tay',
                 'active': false,
-                'price': 9000,
+                'price': 302900,
                 'parent': 1,
                 'hasChildren': false
             }
@@ -194,9 +197,9 @@
             {
                 'id': 10,
                 'src': 'prod/giai-ba/01.png',
-                'name': 'Sản phẩm 1',
+                'name': 'Combo Phẳng phiu',
                 'active': false,
-                'price': 9000,
+                'price': 685400,
                 'parent': 2,
                 'hasChildren': false
             }
@@ -204,9 +207,9 @@
             {
                 'id': 11,
                 'src': 'prod/giai-ba/02.png',
-                'name': 'Sản phẩm 2',
+                'name': 'Combo Siêu tốc',
                 'active': false,
-                'price': 9000,
+                'price': 763900,
                 'parent': 2,
                 'hasChildren': false
             }
@@ -214,9 +217,9 @@
             {
                 'id': 13,
                 'src': 'prod/giai-nhi/01.png',
-                'name': 'Sản phẩm 1',
+                'name': 'Combo Chiên xào nấu',
                 'active': false,
-                'price': 9000,
+                'price': 811900,
                 'parent': 3,
                 'hasChildren': false
             }
@@ -224,15 +227,19 @@
             {
                 'id': 14,
                 'src': 'prod/giai-nhi/02.png',
-                'name': 'Sản phẩm 2',
+                'name': 'Combo Bảo quản thức ăn',
                 'active': false,
-                'price': 9000,
+                'price': 1084000,
                 'parent': 3,
                 'hasChildren': false
             }
         ]
 
         var activeProduct = null;
+
+        var $player = $('#audioPlayer');
+
+        var audioElement = document.createElement('audio');
 
         $.each(products, function (i, _prod) {
             if (_prod.active == true) {
@@ -342,7 +349,7 @@
         }
 
         appendGuess = function ($guessList, guess) {
-            _html = '<div id="' + guess.id + '"><h3>' + guess.name + ' - <span>' + currencyFormatter(guess.price) + ' k</span> ';
+            _html = '<div id="' + guess.id + '"><h3>' + guess.name + ' - <span>' + currencyFormatter(guess.price) + '</span> ';
             _html += ' <button data-id="' + guess.id + '" id="button_' + guess.id + '"  type="button" class="btn btn-default" aria-label="Left Align"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
             _html += '</h3>';
             _html += '</div>';
@@ -367,6 +374,8 @@
 //        https://osrec.github.io/currencyFormatter.js/
         /* OnLoad Page */
         $(document).ready(function ($) {
+            audioElement.setAttribute('src','mp3/win1.mp3');
+
             if (typeof(Storage) !== "undefined") {
                 var guesser = JSON.parse(localStorage.getItem('guesser'));
                 console.log(guesser);
@@ -387,8 +396,13 @@
                 var guesser = JSON.parse(localStorage.getItem('guesser'));
                 winner = findWinner(guesser);
 //                alert(winner.name + '  ' + winner.price);
-                $('#modal_body').html('<h3><strong>' + winner.name + '</strong> đã dự đoán với giá: ' + currencyFormatter(winner.price) + '.000 VNĐ </h3>');
+                _winnerHTML = '';
+                _winnerHTML += '<h3><strong>' + winner.name + '</strong> đã dự đoán với giá: ' + currencyFormatter(winner.price) + ' VNĐ </h3>';
+                _winnerHTML += '<h3>Sản phẩm có tổng giá trị là: <strong>' + currencyFormatter(activeProduct.price) + '</strong> VNĐ</h3>';
+                $('#modal_body').html(_winnerHTML);
                 $('#myModal').modal('show');
+                audioElement.play();
+
             })
 
             $('#clear-btn').click(function (e) {
