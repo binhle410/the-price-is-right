@@ -85,7 +85,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <button class="btn btn-default" id="clear-btn">Clear</button>
+                                <button class="hidden btn btn-default" id="btn-clear">Clear</button>
                             </td>
                         </tr>
                     </table>
@@ -269,6 +269,10 @@
             }
             if (_prod.hasChildren == false) {
                 $('#product_' + _prod.id).on('click', function () {
+
+                    localStorage.setItem('guesser', JSON.stringify(new Array()));
+                    $guessList.empty();
+
                     $.each(products, function (i, __prod) {
                         if (__prod.id == _prod.id) {
                             activeProduct = __prod;
@@ -425,7 +429,7 @@
 
             })
 
-            $('#clear-btn').click(function (e) {
+            $('#btn-clear').click(function (e) {
                 localStorage.setItem('guesser', JSON.stringify(new Array()));
                 $guessList.empty();
             })
