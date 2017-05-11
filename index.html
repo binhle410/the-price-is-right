@@ -94,7 +94,9 @@
             <div class="row">
 
             </div>
-            <div class="row" id="guess-list">
+            <div class="row">
+                <table class="table table-striped" id="guess-list">
+                </table>
             </div>
         </div>
     </div>
@@ -352,10 +354,10 @@
         }
 
         appendGuess = function ($guessList, guess) {
-            _html = '<div id="' + guess.id + '"><h1 style="font-weight: bolder;">' + guess.name + ' - <span>' + currencyFormatter(guess.price) + '</span> ';
+            _html = '<tr id="' + guess.id + '"><td><h1 style="font-weight: bolder;">' + guess.name + ' - <span>' + currencyFormatter(guess.price) + '</span> ';
             _html += ' <button data-id="' + guess.id + '" id="button_' + guess.id + '"  type="button" class="btn btn-default" aria-label="Left Align"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
             _html += '</h1>';
-            _html += '</div>';
+            _html += '</td></tr>';
             $guessList.append(_html);
             $('#button_' + guess.id).on('click', function () {
                 $('#' + guess.id).hide();
