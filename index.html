@@ -20,6 +20,8 @@
 
     <script src="js/currencyFormatter.min.js"></script>
 
+    <!-- http://www.jqueryscript.net/animation/jQuery-Plugin-To-Create-Canvas-Based-Fireworks.html -->
+    <script src="js/jquery.fireworks.js"></script>
 
 </head>
 <body>
@@ -58,7 +60,7 @@
 </nav>
 
 
-<div class="container theme-showcase" role="main">
+<div id="divContainer" class="container theme-showcase" role="main">
     <div class="row">
         <div class="col-xs-8 text-center">
             <div class="hidden">
@@ -149,7 +151,7 @@
                 'src': 'prod/khuyen-khich/01.png',
                 'name': 'Combo No bụng',
                 'active': false,
-                'price': 306800,
+                'price': 321600,
                 'parent': 1,
                 'hasChildren': false
             }
@@ -159,7 +161,7 @@
                 'src': 'prod/khuyen-khich/02.png',
                 'name': 'Combo Thơm tho',
                 'active': false,
-                'price': 316000,
+                'price': 328000,
                 'parent': 1,
                 'hasChildren': false
             }
@@ -179,7 +181,7 @@
                 'src': 'prod/khuyen-khich/04.png',
                 'name': 'Combo Giặt giũ',
                 'active': false,
-                'price': 281000,
+                'price': 370000,
                 'parent': 1,
                 'hasChildren': false
             }
@@ -199,7 +201,7 @@
                 'src': 'prod/giai-ba/01.png',
                 'name': 'Combo Phẳng phiu',
                 'active': false,
-                'price': 685400,
+                'price': 692900,
                 'parent': 2,
                 'hasChildren': false
             }
@@ -313,6 +315,7 @@
                 }
             })
             if (_wonPrice == 0) {
+                return null;
                 $.each(guesser, function (i, _guess) {
                     if (_guess.price > activeProduct.price) {
                         if (_wonPrice == 0) {
@@ -349,9 +352,9 @@
         }
 
         appendGuess = function ($guessList, guess) {
-            _html = '<div id="' + guess.id + '"><h3>' + guess.name + ' - <span>' + currencyFormatter(guess.price) + '</span> ';
+            _html = '<div id="' + guess.id + '"><h1 style="font-weight: bolder;">' + guess.name + ' - <span>' + currencyFormatter(guess.price) + '</span> ';
             _html += ' <button data-id="' + guess.id + '" id="button_' + guess.id + '"  type="button" class="btn btn-default" aria-label="Left Align"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
-            _html += '</h3>';
+            _html += '</h1>';
             _html += '</div>';
             $guessList.append(_html);
             $('#button_' + guess.id).on('click', function () {
@@ -374,8 +377,6 @@
 //        https://osrec.github.io/currencyFormatter.js/
         /* OnLoad Page */
         $(document).ready(function ($) {
-            audioElement.setAttribute('src','mp3/win1.mp3');
-
             if (typeof(Storage) !== "undefined") {
                 var guesser = JSON.parse(localStorage.getItem('guesser'));
                 console.log(guesser);
@@ -392,16 +393,33 @@
                 // Sorry! No Web Storage support..
             }
 
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                $('.modal-header').fireworks('destroy');
+                $('body').fireworks('destroy');
+            })
+
             $('#check-btn').click(function (e) {
                 var guesser = JSON.parse(localStorage.getItem('guesser'));
                 winner = findWinner(guesser);
 //                alert(winner.name + '  ' + winner.price);
-                _winnerHTML = '';
-                _winnerHTML += '<h3><strong>' + winner.name + '</strong> đã dự đoán với giá: ' + currencyFormatter(winner.price) + ' VNĐ </h3>';
-                _winnerHTML += '<h3>Sản phẩm có tổng giá trị là: <strong>' + currencyFormatter(activeProduct.price) + '</strong> VNĐ</h3>';
-                $('#modal_body').html(_winnerHTML);
+                if (winner == null) {
+                    _noWinnerHTML = '';
+                    _noWinnerHTML += '<h1><strong>THẬT ĐÁNG TIẾC</strong>. CẢ NHÀ MÌNH ĐI CHỢ HƠI QUÁ TAY RỒI !!! </h1>';
+                    _noWinnerHTML += '';
+                    $('#modal_body').html(_noWinnerHTML);
+                    audioElement.setAttribute('src', 'mp3/fail' + Math.floor((Math.random() * 10) + 1) + '.mp3');
+                    audioElement.play();
+                } else {
+                    _winnerHTML = '';
+                    _winnerHTML += '<h1>XIN CHÚC MỪNG <strong>' + winner.name + '</strong> ĐÃ CHIẾN THẮNG VỚI GIÁ DỰ ĐOÁN: <strong>' + currencyFormatter(winner.price) + ' VNĐ</strong> </h1>';
+                    _winnerHTML += '<h1>Sản phẩm có tổng giá trị là: <strong>' + currencyFormatter(activeProduct.price) + '</strong> VNĐ</h1>';
+                    $('#modal_body').html(_winnerHTML);
+                    audioElement.setAttribute('src', 'mp3/win' + Math.floor((Math.random() * 10) + 1) + '.mp3');
+                    audioElement.play();
+                    $('.modal-header').fireworks();
+                    $('body').fireworks();
+                }
                 $('#myModal').modal('show');
-                audioElement.play();
 
             })
 
@@ -452,12 +470,12 @@
 </script>
 
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Xin chúc mừng</h4>
+                <h1 class="modal-title">KẾT QUẢ !</h1>
             </div>
             <div class="modal-body" id="modal_body">
 
@@ -468,5 +486,9 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script>
+
+</script>
 </body>
 </html>
