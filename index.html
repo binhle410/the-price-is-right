@@ -362,7 +362,7 @@
             _html += ' <button data-id="' + guess.id + '" id="button_' + guess.id + '"  type="button" class="btn btn-default" aria-label="Left Align"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
             _html += '</h1>';
             _html += '</td></tr>';
-            $guessList.append(_html);
+            $guessList.prepend(_html);
             $('#button_' + guess.id).on('click', function () {
                 $('#' + guess.id).hide();
                 var guesser = JSON.parse(localStorage.getItem('guesser'));
