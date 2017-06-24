@@ -394,6 +394,8 @@
                     }
                     $(this).data('mode', 'show');
                     $(this).text('Sửa thông tin');
+                    $nextRow = parseInt($row) + 1;
+                    $('#' + $nextRow + '' + 1).focus();
                 } else {
                     for (var i = 1; i < 6; i++) {
                         $rowId = $row + '' + i;
@@ -408,6 +410,7 @@
                     }
                     $(this).data('mode', 'edit');
                     $(this).text('Lưu thông tin');
+                    $('#' + $row + '' + 1).focus();
                 }
 
 //                alert(winner.name + '  ' + winner.price);
