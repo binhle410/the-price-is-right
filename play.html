@@ -24,7 +24,7 @@
     <script src="js/jquery.fireworks.js"></script>
 
 </head>
-<body>
+<body style="background-color: #c7ddef">
 <!-- Fixed navbar -->
 <nav class="navbar navbar-inverse">
     <div class="container">
@@ -40,7 +40,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul id="menu_products" class="nav navbar-nav">
-                <li><a href="play.html">GO</a></li>
+                <li><a href="index.html">HOME</a></li>
                 <!--<li class="dropdown">-->
                 <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
                 <!--aria-expanded="false">Dropdown <span class="caret"></span></a>-->
@@ -66,7 +66,94 @@
             <div class="hidden">
                 <audio id="audioPlayer"></audio>
             </div>
-            <img id="product_image" width="100%" src="img/cover.jpg"/>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Lượt chơi</th>
+                    <th>Chiên Con</th>
+                    <th>Ấu Nhi</th>
+                    <th>Thiếu Nhi</th>
+                    <th>Nghĩa Sĩ</th>
+                    <th>Tông Đồ</th>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Lượt 1</th>
+                    <td><input id="11" class="ipt form-control"/></td>
+                    <td><input id="12" class="ipt form-control"/></td>
+                    <td><input id="13" class="ipt form-control"/></td>
+                    <td><input id="14" class="ipt form-control"/></td>
+                    <td><input id="15" class="ipt form-control"/></td>
+                    <td>
+                        <button id="1" data-mode="edit" class="save btn btn-default btn-sm">Lưu thông tin</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Lượt 2</th>
+                    <td><input id="21" class="ipt form-control"/></td>
+                    <td><input id="22" class="ipt form-control"/></td>
+                    <td><input id="23" class="ipt form-control"/></td>
+                    <td><input id="24" class="ipt form-control"/></td>
+                    <td><input id="25" class="ipt form-control"/></td>
+                    <td>
+                        <button id="2" data-mode="edit" class="save btn btn-default btn-sm">Lưu thông tin</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Lượt 3</th>
+                    <td><input id="31" class="ipt form-control"/></td>
+                    <td><input id="32" class="ipt form-control"/></td>
+                    <td><input id="33" class="ipt form-control"/></td>
+                    <td><input id="34" class="ipt form-control"/></td>
+                    <td><input id="35" class="ipt form-control"/></td>
+                    <td>
+                        <button id="3" data-mode="edit" class="save btn btn-default btn-sm">Lưu thông tin</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Lượt 4</th>
+                    <td><input id="41" class="ipt form-control"/></td>
+                    <td><input id="42" class="ipt form-control"/></td>
+                    <td><input id="43" class="ipt form-control"/></td>
+                    <td><input id="44" class="ipt form-control"/></td>
+                    <td><input id="45" class="ipt form-control"/></td>
+                    <td>
+                        <button id="4" data-mode="edit" class="save btn btn-default btn-sm">Lưu thông tin</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Lượt 5</th>
+                    <td><input id="51" class="ipt form-control"/></td>
+                    <td><input id="52" class="ipt form-control"/></td>
+                    <td><input id="53" class="ipt form-control"/></td>
+                    <td><input id="54" class="ipt form-control"/></td>
+                    <td><input id="55" class="ipt form-control"/></td>
+                    <td>
+                        <button id="5" data-mode="edit" class="save btn btn-default btn-sm">Lưu thông tin</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Kết quả</th>
+                    <td>
+                        <div id="r1"></div>
+                    </td>
+                    <td>
+                        <div id="r2"></div>
+                    </td>
+                    <td>
+                        <div id="r3"></div>
+                    </td>
+                    <td>
+                        <div id="r4"></div>
+                    </td>
+                    <td>
+                        <div id="r5"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -74,9 +161,9 @@
 </div> <!-- /container -->
 
 <script>
+
     (function ($) {
-        var products = [
-        ]
+        var products = []
 
         var activeProduct = null;
 
@@ -217,11 +304,41 @@
             });
         }
 
+
         /* ----------------------------------------------- */
         /* ----------------------------------------------- */
 //        https://osrec.github.io/currencyFormatter.js/
         /* OnLoad Page */
         $(document).ready(function ($) {
+
+            for (_i = 1; _i < 6; _i++) {
+                teamId = 'team' + _i;
+                localStorage.setItem(teamId, 0);
+            }
+
+            $('.ipt').change(function (e) {
+                $val = $(this).val();
+                $(this).val($val.toUpperCase());
+
+            });
+
+            $('.ipt').keypress(function (e) {
+                if (e.which == 13) {
+//                    formatMoney();
+                }
+                $id = parseInt($(this).attr('id'));
+                $nextId = $id + 1;
+
+                $nextIpt = $('#' + $nextId);
+
+                if ($nextIpt.length > 0) {
+                    $nextIpt.focus();
+                } else {
+                    $row = Math.floor($nextId / 10);
+                }
+//                $(this).next('.ipt').focus();
+            });
+
             if (typeof(Storage) !== "undefined") {
                 var guesser = JSON.parse(localStorage.getItem('guesser'));
                 console.log(guesser);
@@ -243,28 +360,68 @@
                 $('body').fireworks('destroy');
             })
 
-            $('#check-btn').click(function (e) {
-                var guesser = JSON.parse(localStorage.getItem('guesser'));
-                winner = findWinner(guesser);
+            $('.save').click(function (e) {
+                $row = $(this).attr('id');
+                $yCount = 0;
+                $rCount = 0;
+                for (var i = 1; i < 6; i++) {
+                    $rowId = $row + '' + i;
+                    $val = $('#' + $rowId).val().toUpperCase();
+                    if ($val === 'Y') {
+                        $yCount++;
+                    } else {
+                        $rCount++;
+                    }
+                }
+                $winningSide = '';
+                if ($rCount > $yCount) {
+                    $winningSide = 'R';
+                } else {
+                    $winningSide = 'Y';
+                }
+
+                if ($(this).data('mode') === 'edit') {
+                    for (var i = 1; i < 6; i++) {
+                        $rowId = $row + '' + i;
+                        $val = $('#' + $rowId).val().toUpperCase();
+                        console.log($('#' + $rowId));
+                        $('#' + $rowId).prop('disabled', 'disabled');
+                        if ($val === $winningSide) {
+                            $teamScore = parseInt(localStorage.getItem('team' + i));
+                            localStorage.setItem('team' + i, ++$teamScore);
+                            $('#r' + i).text(localStorage.getItem('team' + i));
+                        }
+                    }
+                    $(this).data('mode', 'show');
+                    $(this).text('Sửa thông tin');
+                } else {
+                    for (var i = 1; i < 6; i++) {
+                        $rowId = $row + '' + i;
+                        $val = $('#' + $rowId).val().toUpperCase();
+                        console.log($('#' + $rowId));
+                        $('#' + $rowId).removeProp('disabled');
+                        if ($val === $winningSide) {
+                            $teamScore = parseInt(localStorage.getItem('team' + i));
+                            localStorage.setItem('team' + i, --$teamScore);
+                            $('#r' + i).text(localStorage.getItem('team' + i));
+                        }
+                    }
+                    $(this).data('mode', 'edit');
+                    $(this).text('Lưu thông tin');
+                }
+
 //                alert(winner.name + '  ' + winner.price);
                 if (winner == null) {
-                    _noWinnerHTML = '';
-                    _noWinnerHTML += '<h1><strong>THẬT ĐÁNG TIẾC</strong>. CẢ NHÀ MÌNH ĐI CHỢ HƠI QUÁ TAY RỒI !!! </h1>';
-                    _noWinnerHTML += '';
-                    $('#modal_body').html(_noWinnerHTML);
-                    audioElement.setAttribute('src', 'mp3/fail' + Math.floor((Math.random() * 10) + 1) + '.mp3');
-                    audioElement.play();
+//                    _noWinnerHTML = '';
+//                    _noWinnerHTML += '<h1><strong>THẬT ĐÁNG TIẾC</strong>. CẢ NHÀ MÌNH ĐI CHỢ HƠI QUÁ TAY RỒI !!! </h1>';
+//                    _noWinnerHTML += '';
+//                    $('#modal_body').html(_noWinnerHTML);
+//                    audioElement.setAttribute('src', 'mp3/fail' + Math.floor((Math.random() * 10) + 1) + '.mp3');
+//                    audioElement.play();
                 } else {
-                    _winnerHTML = '';
-                    _winnerHTML += '<h1>XIN CHÚC MỪNG <strong>' + winner.name + '</strong> ĐÃ CHIẾN THẮNG VỚI GIÁ DỰ ĐOÁN: <strong>' + currencyFormatter(winner.price) + ' VNĐ</strong> </h1>';
-                    _winnerHTML += '<h1>Sản phẩm có tổng giá trị là: <strong>' + currencyFormatter(activeProduct.price) + '</strong> VNĐ</h1>';
-                    $('#modal_body').html(_winnerHTML);
-                    audioElement.setAttribute('src', 'mp3/win' + Math.floor((Math.random() * 10) + 1) + '.mp3');
-                    audioElement.play();
-                    $('.modal-header').fireworks();
-                    $('body').fireworks();
+
                 }
-                $('#myModal').modal('show');
+//                $('#myModal').modal('show');
 
             })
 
@@ -279,30 +436,7 @@
                 }
             });
 
-            $('#price').keypress(function (e) {
-                if (e.which == 13) {
-                    var guesser = JSON.parse(localStorage.getItem('guesser'));
-                    if (guesser == 'undefined' || guesser === null || guesser === 'null') {
-                        guesser = new Array();
-                        console.log('initiating a new array object for guesser');
-                    }
 
-                    var guess = new Object();
-                    guess.name = $('#name').val();
-                    guess.price = $('#price').val();
-                    guess.id = Math.floor((Math.random() * 1000) + 1) + '_' + Math.floor((Math.random() * 1000) + 1) + '_' + Math.floor((Math.random() * 1000) + 1) + '_' + Math.floor((Math.random() * 1000) + 1);
-
-                    guesser.push(guess);
-                    localStorage.setItem('guesser', JSON.stringify(guesser));
-
-                    $guessList = $('#guess-list');
-                    appendGuess($guessList, guess);
-                    $('#name').val('');
-                    $('#price').val('');
-                    $('#name').focus();
-//                    formatMoney();
-                }
-            });
         });
         /* OnLoad Window */
         var init = function () {
