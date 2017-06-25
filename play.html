@@ -40,7 +40,7 @@
 </head>
 <body style="background-color: #c7ddef">
 <!-- Fixed navbar -->
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -55,6 +55,10 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul id="menu_products" class="nav navbar-nav">
                 <li><a href="index.html">HOME</a></li>
+                <li><input id="91" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;" /></li>
+                <li><input id="92" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;" /></li>
+                <li><input id="93" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;" /></li>
+                <li><input id="94" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;" /></li>
                 <!--<li class="dropdown">-->
                 <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
                 <!--aria-expanded="false">Dropdown <span class="caret"></span></a>-->
@@ -74,7 +78,7 @@
 </nav>
 
 
-<div id="divContainer" class="container theme-showcase" role="main">
+<div id="divContainer" style="margin-top: 60px;" class="container theme-showcase" role="main">
     <div class="row">
         <div class="col-xs-12 text-center">
             <div class="hidden">
@@ -344,7 +348,7 @@
 //        https://osrec.github.io/currencyFormatter.js/
         /* OnLoad Page */
         $(document).ready(function ($) {
-
+            localStorage.clear();
             for (_i = 1; _i < 6; _i++) {
                 teamId = 'team' + _i;
                 localStorage.setItem(teamId, 0);
@@ -356,8 +360,12 @@
 
             });
 
+            $(".ipt").on("click", function () {
+                $(this).select();
+            });
+
             $('.ipt').keyup(function (e) {
-                if (e.which == 13) {
+                if (e.which == 13 || e.which == 9|| e.which == 8|| e.which == 46) {
                     return;
                 }
                 $id = parseInt($(this).attr('id'));
@@ -367,9 +375,11 @@
 
                 if ($nextIpt.length > 0) {
                     $nextIpt.focus();
+                    $nextIpt.select();
                 } else {
                     $row = Math.floor($nextId / 10);
                     $('#' + $row).focus();
+                    $('#' + $row).select();
                 }
 //                $(this).next('.ipt').focus();
             });
@@ -405,6 +415,17 @@
                 $row = $(this).attr('id');
                 $yCount = 0;
                 $rCount = 0;
+
+                for (var i = 1; i < 5; i++) {
+                    $rowId = '9' + i;
+                    $val = $('#' + $rowId).val().toUpperCase();
+                    if ($val === 'Y') {
+                        $yCount++;
+                    } else {
+                        $rCount++;
+                    }
+                }
+
                 for (var i = 1; i < 6; i++) {
                     $rowId = $row + '' + i;
                     $val = $('#' + $rowId).val().toUpperCase();
@@ -437,6 +458,8 @@
                     $(this).text('Sửa thông tin');
                     $nextRow = parseInt($row) + 1;
                     $('#' + $nextRow + '' + 1).focus();
+                    $('#' + $nextRow + '' + 1).select();
+
                 } else {
                     for (var i = 1; i < 6; i++) {
                         $rowId = $row + '' + i;
@@ -452,6 +475,7 @@
                     $(this).data('mode', 'edit');
                     $(this).text('Lưu thông tin');
                     $('#' + $row + '' + 1).focus();
+                    $('#' + $row + '' + 1).select();
                 }
 
 //                alert(winner.name + '  ' + winner.price);
