@@ -346,17 +346,43 @@
             });
         }
 
-
         /* ----------------------------------------------- */
         /* ----------------------------------------------- */
 //        https://osrec.github.io/currencyFormatter.js/
         /* OnLoad Page */
         $(document).ready(function ($) {
 
-            for (_i = 1; _i < 6; _i++) {
+            for (var _i = 1; _i < 6; _i++) {
                 teamId = 'team' + _i;
-                localStorage.setItem(teamId, 0);
+                var _teamValue = localStorage.getItem(teamId);
+                if (_teamValue == 'undefined' || _teamValue == null) {
+                    localStorage.setItem(teamId, 0);
+                } else {
+                    $('#r' + _i).text(_teamValue);
+                }
             }
+
+            // turn - row
+            for (var _i = 1; _i < 6; _i++) {
+                var _rowValue = localStorage.getItem('row' + _i);
+                if (_rowValue == 'undefined' || _rowValue == null) {
+
+                } else {
+                    $rowData = JSON.parse(_rowValue);
+                    // column
+                    for (var _j = 1; _j < 6; _j++) {
+                        var _rowId = '' + _i + _j;
+                        if (_rowId in $rowData) {
+                            $('#' + _rowId).val($rowData[_rowId]);
+                            $('#' + _rowId).prop('disabled', 'disabled');
+                            $('#' + _i).data('mode', 'show');
+                            $('#' + _i).text('Sửa thông tin');
+                        }
+                    }
+                }
+
+            }
+
 
             $('.ipt').change(function (e) {
                 $val = $(this).val();
@@ -397,7 +423,7 @@
                 } else {
                 }
                 $.each(guesser, function (i, guess) {
-                    appendGuess($guessList, guess);
+
                 })
 
             } else {
