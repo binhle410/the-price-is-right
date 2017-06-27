@@ -75,8 +75,7 @@
 
 <script>
     (function ($) {
-        var products = [
-        ]
+        var products = []
 
         var activeProduct = null;
 
@@ -222,6 +221,9 @@
 //        https://osrec.github.io/currencyFormatter.js/
         /* OnLoad Page */
         $(document).ready(function ($) {
+
+            localStorage.clear();
+
             if (typeof(Storage) !== "undefined") {
                 var guesser = JSON.parse(localStorage.getItem('guesser'));
                 console.log(guesser);

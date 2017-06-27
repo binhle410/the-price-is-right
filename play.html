@@ -55,10 +55,14 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul id="menu_products" class="nav navbar-nav">
                 <li><a href="index.html">HOME</a></li>
-                <li><input id="91" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;" /></li>
-                <li><input id="92" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;" /></li>
-                <li><input id="93" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;" /></li>
-                <li><input id="94" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;" /></li>
+                <li><input id="91" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;"/>
+                </li>
+                <li><input id="92" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;"/>
+                </li>
+                <li><input id="93" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;"/>
+                </li>
+                <li><input id="94" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;"/>
+                </li>
                 <!--<li class="dropdown">-->
                 <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
                 <!--aria-expanded="false">Dropdown <span class="caret"></span></a>-->
@@ -348,7 +352,7 @@
 //        https://osrec.github.io/currencyFormatter.js/
         /* OnLoad Page */
         $(document).ready(function ($) {
-            localStorage.clear();
+
             for (_i = 1; _i < 6; _i++) {
                 teamId = 'team' + _i;
                 localStorage.setItem(teamId, 0);
@@ -365,7 +369,7 @@
             });
 
             $('.ipt').keyup(function (e) {
-                if (e.which == 13 || e.which == 9|| e.which == 8|| e.which == 46) {
+                if (e.which == 13 || e.which == 9 || e.which == 8 || e.which == 46) {
                     return;
                 }
                 $id = parseInt($(this).attr('id'));
@@ -413,17 +417,32 @@
 
             $('.save').click(function (e) {
                 $row = $(this).attr('id');
+                $rowData = JSON.parse(localStorage.getItem('row' + $row));
+                if ($rowData === 'undefined' || $rowData == null) {
+                    $rowData = new Array();
+                }
+
                 $yCount = 0;
                 $rCount = 0;
+
+                if ($(this).data('mode') === 'show') {
+                    for (var i = 1; i < 5; i++) {
+                        $rowId = '9' + i;
+                        $val = $rowData[$rowId];
+                        $('#' + $rowId).val($val);
+                    }
+                }
 
                 for (var i = 1; i < 5; i++) {
                     $rowId = '9' + i;
                     $val = $('#' + $rowId).val().toUpperCase();
+
                     if ($val === 'Y') {
                         $yCount++;
                     } else {
                         $rCount++;
                     }
+                    $rowData[$rowId] = $val;
                 }
 
                 for (var i = 1; i < 6; i++) {
@@ -434,6 +453,7 @@
                     } else {
                         $rCount++;
                     }
+                    $rowData[$rowId] = $val;
                 }
                 $winningSide = '';
                 if ($rCount > $yCount) {
@@ -478,18 +498,8 @@
                     $('#' + $row + '' + 1).select();
                 }
 
-//                alert(winner.name + '  ' + winner.price);
-                if (winner == null) {
-//                    _noWinnerHTML = '';
-//                    _noWinnerHTML += '<h1><strong>THẬT ĐÁNG TIẾC</strong>. CẢ NHÀ MÌNH ĐI CHỢ HƠI QUÁ TAY RỒI !!! </h1>';
-//                    _noWinnerHTML += '';
-//                    $('#modal_body').html(_noWinnerHTML);
-//                    audioElement.setAttribute('src', 'mp3/fail' + Math.floor((Math.random() * 10) + 1) + '.mp3');
-//                    audioElement.play();
-                } else {
+                localStorage.setItem('row' + $row, JSON.stringify($rowData));
 
-                }
-//                $('#myModal').modal('show');
 
             })
 
