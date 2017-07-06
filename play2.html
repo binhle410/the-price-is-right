@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="js/jquery.formatter.min.js"></script>
+
+    <script src="js/currencyFormatter.min.js"></script>
+
+    <!-- http://www.jqueryscript.net/animation/jQuery-Plugin-To-Create-Canvas-Based-Fireworks.html -->
+    <script src="js/jquery.fireworks.js"></script>
+    <style>
+        h1 {
+            font-size: 50px;
+            font-weight: bolder;
+        }
+
+        th {
+            font-size: xx-large;
+        }
+
+        tbody td:nth-of-type(odd),
+        thead th:nth-of-type(odd) {
+
+        }
+    </style>
+</head>
+<body style="background-color: #c7ddef">
+<!-- Fixed navbar -->
+<!--<nav class="navbar navbar-inverse navbar-fixed-top">-->
+<!--<div class="container">-->
+<!--<div class="navbar-header">-->
+<!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"-->
+<!--aria-expanded="false" aria-controls="navbar">-->
+<!--<span class="sr-only">Toggle navigation</span>-->
+<!--<span class="icon-bar"></span>-->
+<!--<span class="icon-bar"></span>-->
+<!--<span class="icon-bar"></span>-->
+<!--</button>-->
+<!--<a class="navbar-brand" href="#">Sản phẩm</a>-->
+<!--</div>-->
+<!--<div id="navbar" class="navbar-collapse collapse">-->
+<!--<ul id="menu_products" class="nav navbar-nav">-->
+<!--<li><a href="index.html">HOME</a></li>-->
+
+
+<!--<li><input id="91" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;"/>-->
+<!--</li>-->
+<!--<li><input id="92" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;"/>-->
+<!--</li>-->
+<!--<li><input id="93" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;"/>-->
+<!--</li>-->
+<!--<li><input id="94" class="ipt form-control input-lg" style="margin-top: 10px; margin-bottom: 10px;"/>-->
+<!--</li>-->
+
+
+<!--<li class="dropdown">-->
+<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
+<!--aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+<!--<ul class="dropdown-menu">-->
+<!--<li class="active"><a href="#">Action</a></li>-->
+<!--<li><a href="#">Another action</a></li>-->
+<!--<li><a href="#">Something else here</a></li>-->
+<!--<li role="separator" class="divider"></li>-->
+<!--<li class="dropdown-header">Nav header</li>-->
+<!--<li><a href="#">Separated link</a></li>-->
+<!--<li><a href="#">One more separated link</a></li>-->
+<!--</ul>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--/.nav-collapse -->
+<!--</div>-->
+<!--</nav>-->
+
+
+<div id="divContainer" style="margin-top: 60px;" class="container theme-showcase" role="main">
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <div class="hidden">
+                <audio id="audioPlayer"></audio>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="12%">Lượt chơi</th>
+                    <th style="background: lightpink;">Chiên Con</th>
+                    <th style="background: lightgreen;">Ấu Nhi</th>
+                    <th style="background: lightskyblue;">Thiếu Nhi</th>
+                    <th style="background: lightgoldenrodyellow;">Nghĩa Sĩ</th>
+                    <th style="background: palevioletred;">Tông Đồ</th>
+                    <td width="20%"></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Lượt 1</th>
+                    <td style="background: lightpink;"><input id="11" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightgreen;"><input id="12" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightskyblue;"><input id="13" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightgoldenrodyellow;"><input id="14" class="ipt form-control input-lg"/>
+                    </td>
+                    <td style="background: palevioletred;"><input id="15" class="ipt form-control input-lg"/></td>
+                    <td>
+                        <button id="1" data-mode="edit" class="save btn btn-default btn-sm">Lưu thông tin</button>
+                        <button id="vid-1" data-video="1" class="video btn btn-info btn-sm">Xem Clip</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Lượt 2</th>
+                    <td style="background: lightpink;"><input id="21" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightgreen;"><input id="22" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightskyblue;"><input id="23" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightgoldenrodyellow;"><input id="24" class="ipt form-control input-lg"/>
+                    </td>
+                    <td style="background: palevioletred;"><input id="25" class="ipt form-control input-lg"/></td>
+                    <td>
+                        <button id="2" data-mode="edit" class="save btn btn-default btn-sm">Lưu thông tin</button>
+                        <button id="vid-2" data-video="2" class="video btn btn-info btn-sm">Xem Clip</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Lượt 3</th>
+                    <td style="background: lightpink;"><input id="31" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightgreen;"><input id="32" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightskyblue;"><input id="33" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightgoldenrodyellow;"><input id="34" class="ipt form-control input-lg"/>
+                    </td>
+                    <td style="background: palevioletred;"><input id="35" class="ipt form-control input-lg"/></td>
+                    <td>
+                        <button id="3" data-mode="edit" class="save btn btn-default btn-sm">Lưu thông tin</button>
+                        <button id="vid-3" data-video="3" class="video btn btn-info btn-sm">Xem Clip</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Lượt 4</th>
+                    <td style="background: lightpink;"><input id="41" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightgreen;"><input id="42" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightskyblue;"><input id="43" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightgoldenrodyellow;"><input id="44" class="ipt form-control input-lg"/>
+                    </td>
+                    <td style="background: palevioletred;"><input id="45" class="ipt form-control input-lg"/></td>
+                    <td>
+                        <button id="4" data-mode="edit" class="save btn btn-default btn-sm">Lưu thông tin</button>
+                        <button id="vid-4" data-video="4" class="video btn btn-info btn-sm">Xem Clip</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Lượt 5</th>
+                    <td style="background: lightpink;"><input id="51" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightgreen;"><input id="52" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightskyblue;"><input id="53" class="ipt form-control input-lg"/></td>
+                    <td style="background: lightgoldenrodyellow;"><input id="54" class="ipt form-control input-lg"/>
+                    </td>
+                    <td style="background: palevioletred;"><input id="55" class="ipt form-control input-lg"/></td>
+                    <td>
+                        <button id="5" data-mode="edit" class="save btn btn-default btn-sm">Lưu thông tin</button>
+                        <button id="vid-5" data-video="5" class="video btn btn-info btn-sm">Xem Clip</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Kết quả</th>
+                    <td style="background: lightpink;">
+                        <h1>
+                            <div id="r1"></div>
+                        </h1>
+                    </td>
+                    <td style="background: lightgreen;">
+                        <h1>
+                            <div id="r2"></div>
+                        </h1>
+                    </td>
+                    <td style="background: lightskyblue;">
+                        <h1>
+                            <div id="r3"></div>
+                        </h1>
+                    </td>
+                    <td style="background: lightgoldenrodyellow;">
+                        <h1>
+                            <div id="r4"></div>
+                        </h1>
+                    </td>
+                    <td style="background: palevioletred;">
+                        <h1>
+                            <div id="r5"></div>
+                        </h1>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div> <!-- /container -->
+
+<script>
+
+    (function ($) {
+        var products = []
+
+        var activeProduct = null;
+
+        var $player = $('#audioPlayer');
+
+        var audioElement = document.createElement('audio');
+
+        $.each(products, function (i, _prod) {
+            if (_prod.active == true) {
+                activeClass = ' active '
+                activeProduct = _prod;
+                $('#product_image').attr('src', 'img/' + _prod.src);
+            } else {
+                activeClass = ''
+            }
+            if (_prod.hasChildren == false) {
+                _itemClass = 'menu-item';
+                _html = '<li id="menu_item_' + _prod.id + '"' + ' class = "menu-item ' + activeClass + '" ' + '><a href="#" id="product_' + _prod.id + '">' + _prod.name + '</a></li>';
+            } else {
+                _itemClass = 'dropdown menu-item';
+                _html = '<li id="menu_item_' + _prod.id + '"' + ' class = "dropdown ' + activeClass + '" ' + '><a aria-expanded="false" role="button" aria-haspopup="true" data-toggle="dropdown" class="dropdown-toggle" href="#" id="product_' + _prod.id + '">' + _prod.name + '<span class="caret"></span></a>';
+                _html += '<ul class="dropdown-menu" id="sub_menu_item_' + _prod.id + '">  ' + ' </ul> </li>';
+            }
+            console.log(_html);
+            if (_prod.parent == null) {
+                $('#menu_products').append(_html);
+            } else {
+                $('#sub_menu_item_' + _prod.parent).append(_html);
+            }
+            if (_prod.hasChildren == false) {
+                $('#product_' + _prod.id).on('click', function () {
+
+                    localStorage.setItem('guesser', JSON.stringify(new Array()));
+                    $guessList.empty();
+
+                    $.each(products, function (i, __prod) {
+                        if (__prod.id == _prod.id) {
+                            activeProduct = __prod;
+                            $('#product_image').attr('src', 'img/' + __prod.src);
+                            $('.menu-item').removeClass('active');
+                            $('#menu_item_' + _prod.id).addClass(' active');
+                            //                        $('#menu_item_' + _prod.id).attr('class', _itemClass + ' active');
+                        }
+                    });
+                });
+            }
+        })
+
+        var currencyFormatterParams =
+            {
+                currency: 'VND', 			// If currency is not supplied, defaults to USD
+                symbol: 'k',			// Overrides the currency's default symbol
+                locale: 'vi',			// Overrides the currency's default locale (see supported locales)
+                decimal: ',',			// Overrides the locale's decimal character
+                group: '.',			// Overrides the locale's group character (thousand separator)
+                pattern: '#,###.'		// Overrides the locale's default display pattern
+
+                // The pattern follows standard unicode currency pattern notation.
+                // comma = group separator, dot = decimal separator, exclamation = currency symbol
+            }
+
+        var currencyFormatter = OSREC.CurrencyFormatter.getFormatter(currencyFormatterParams);
+
+        formatMoney = function () {
+            OSREC.CurrencyFormatter.formatAll(
+                {
+                    selector: '.money',
+
+                });
+        }
+        var winner = null;
+        findWinner = function (guesser) {
+            _winner = null;
+            _wonPrice = 0;
+            $.each(guesser, function (i, _guess) {
+                if (_guess.price <= activeProduct.price) {
+                    if (_guess.price > _wonPrice) {
+                        _wonPrice = _guess.price;
+                        _winner = _guess;
+                    }
+                }
+            })
+            if (_wonPrice == 0) {
+                return null;
+                $.each(guesser, function (i, _guess) {
+                    if (_guess.price > activeProduct.price) {
+                        if (_wonPrice == 0) {
+                            _wonPrice = _guess.price;
+                            _winner = _guess;
+                        }
+                        if (_guess.price < _wonPrice) {
+                            _wonPrice = _guess.price;
+                            _winner = _guess;
+                        }
+                    }
+                })
+            }
+            return _winner;
+        }
+
+//        $('#price').formatter({
+//            'pattern': '{{999}},{{999}}',
+//        });
+
+        function dump(obj) {
+            var out = '';
+            for (var i in obj) {
+                out += i + ": " + obj[i] + "\n";
+            }
+
+            alert(out);
+
+            // or, if you wanted to avoid alerts...
+
+            var pre = document.createElement('pre');
+            pre.innerHTML = out;
+            document.body.appendChild(pre)
+        }
+
+        appendGuess = function ($guessList, guess) {
+            _html = '<tr id="' + guess.id + '"><td><h1 style="font-weight: bolder;">' + guess.name + ' - <span>' + currencyFormatter(guess.price) + '</span> ';
+            _html += ' <button data-id="' + guess.id + '" id="button_' + guess.id + '"  type="button" class="btn btn-default" aria-label="Left Align"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
+            _html += '</h1>';
+            _html += '</td></tr>';
+            $guessList.prepend(_html);
+            $('#button_' + guess.id).on('click', function () {
+                $('#' + guess.id).hide();
+                var guesser = JSON.parse(localStorage.getItem('guesser'));
+                $.each(guesser, function (i, _guess) {
+//                    console.log(i);
+//                    console.log(guess);
+                    if (guess.id == _guess.id) {
+                        guesser.splice(i, 1);
+                        localStorage.setItem('guesser', JSON.stringify(guesser));
+                    }
+                })
+
+            });
+        }
+
+        /* ----------------------------------------------- */
+        /* ----------------------------------------------- */
+//        https://osrec.github.io/currencyFormatter.js/
+        /* OnLoad Page */
+        $(document).ready(function ($) {
+
+            for (var _i = 1; _i < 6; _i++) {
+                teamId = 'team' + _i;
+                var _teamValue = localStorage.getItem(teamId);
+                if (_teamValue == 'undefined' || _teamValue == null) {
+                    localStorage.setItem(teamId, 0);
+                } else {
+                    $('#r' + _i).text(_teamValue);
+                }
+            }
+
+            // turn - row
+            for (var _i = 1; _i < 6; _i++) {
+                var _rowValue = localStorage.getItem('row' + _i);
+                if (_rowValue == 'undefined' || _rowValue == null) {
+
+                } else {
+                    $rowData = JSON.parse(_rowValue);
+                    // column
+                    for (var _j = 1; _j < 6; _j++) {
+                        var _rowId = '' + _i + _j;
+                        if (_rowId in $rowData) {
+                            $('#' + _rowId).val($rowData[_rowId]);
+                            $('#' + _rowId).prop('disabled', 'disabled');
+                            $('#' + _i).data('mode', 'show');
+                            $('#' + _i).text('Sửa thông tin');
+                        }
+                    }
+                }
+
+            }
+
+
+            $('.ipt').change(function (e) {
+                $val = $(this).val();
+                $(this).val($val.toUpperCase());
+
+            });
+
+            $(".ipt").on("click", function () {
+                $(this).select();
+            });
+
+            $('.ipt').keyup(function (e) {
+                if (e.which == 13 || e.which == 9 || e.which == 8 || e.which == 46) {
+                    return;
+                }
+                $id = parseInt($(this).attr('id'));
+                $nextId = $id + 1;
+
+                $nextIpt = $('#' + $nextId);
+
+                if ($nextIpt.length > 0) {
+                    $nextIpt.focus();
+                    $nextIpt.select();
+                } else {
+                    $row = Math.floor($nextId / 10);
+                    $('#' + $row).focus();
+                    $('#' + $row).select();
+                }
+//                $(this).next('.ipt').focus();
+            });
+
+            if (typeof(Storage) !== "undefined") {
+                var guesser = JSON.parse(localStorage.getItem('guesser'));
+                console.log(guesser);
+                $guessList = $('#guess-list');
+                if ($.isArray(guesser)) {
+
+                } else {
+                }
+                $.each(guesser, function (i, guess) {
+
+                })
+
+            } else {
+                // Sorry! No Web Storage support..
+            }
+
+            $('#myModal').on('hidden.bs.modal', function (e) {
+//                $('.modal-header').fireworks('destroy');
+//                $('body').fireworks('destroy');
+            })
+
+            $('.video').click(function (e) {
+                videoElement = document.getElementById('player');
+                videoElement.setAttribute('src', 'mp4/' + $(this).data('video') + '.mp4');
+                $('#myModal').modal('show');
+            });
+
+            $('.save').click(function (e) {
+                $row = $(this).attr('id');
+                $rowData = JSON.parse(localStorage.getItem('row' + $row));
+                if ($rowData === 'undefined' || $rowData == null) {
+                    $rowData = new Array();
+                }
+
+                $yCount = 0;
+                $rCount = 0;
+
+                if ($(this).data('mode') === 'show') {
+                    for (var i = 1; i < 5; i++) {
+                        $rowId = '9' + i;
+                        $val = $rowData[$rowId];
+                        $('#' + $rowId).val($val);
+                    }
+                }
+
+                for (var i = 1; i < 6; i++) {
+                    $rowId = $row + '' + i;
+                    $val = $('#' + $rowId).val().toUpperCase();
+                    if ($val === 'Y') {
+                        $yCount++;
+                    } else {
+                        $rCount++;
+                    }
+                    $rowData[$rowId] = $val;
+                }
+                $winningSide = '';
+                if ($rCount > $yCount) {
+                    $winningSide = 'R';
+                } else {
+                    $winningSide = 'Y';
+                }
+
+                if ($(this).data('mode') === 'edit') {
+                    for (var i = 1; i < 6; i++) {
+                        $rowId = $row + '' + i;
+                        $val = $('#' + $rowId).val().toUpperCase();
+//                        console.log($('#' + $rowId));
+//                        $('#' + $rowId).prop('disabled', 'disabled');
+                        $('#' + $rowId).addClass('hidden');
+
+                        $('#' + $rowId).parent().append('<h1 id="heading' + $rowId + '"' + '>' + $val + '</h1>');
+
+
+                        if ($val === $winningSide || $val == 1) {
+                            $teamScore = parseInt(localStorage.getItem('team' + i));
+                            localStorage.setItem('team' + i, ++$teamScore);
+                            $('#r' + i).text(localStorage.getItem('team' + i));
+                        }
+                    }
+                    $(this).data('mode', 'show');
+                    $(this).text('Sửa thông tin');
+                    $nextRow = parseInt($row) + 1;
+                    $('#' + $nextRow + '' + 1).focus();
+                    $('#' + $nextRow + '' + 1).select();
+
+                } else {
+                    for (var i = 1; i < 6; i++) {
+                        $rowId = $row + '' + i;
+                        $val = $('#' + $rowId).val().toUpperCase();
+
+                        $('#' + $rowId).removeProp('disabled');
+                        $('#' + $rowId).removeClass('hidden');
+
+                        $('#' + 'heading' + $rowId).remove();
+                        if ($val === $winningSide || $val == 1) {
+
+                            $teamScore = parseInt(localStorage.getItem('team' + i));
+                            localStorage.setItem('team' + i, --$teamScore);
+                            $('#r' + i).text(localStorage.getItem('team' + i));
+                        }else{
+
+                        }
+                    }
+                    $(this).data('mode', 'edit');
+                    $(this).text('Lưu thông tin');
+                    $('#' + $row + '' + 1).focus();
+                    $('#' + $row + '' + 1).select();
+                }
+
+                localStorage.setItem('row' + $row, JSON.stringify($rowData));
+
+
+            })
+
+            $('#btn-clear').click(function (e) {
+                localStorage.setItem('guesser', JSON.stringify(new Array()));
+                $guessList.empty();
+            })
+
+            $('#name').keypress(function (e) {
+                if (e.which == 13) {
+
+                }
+            });
+
+
+        });
+        /* OnLoad Window */
+        var init = function () {
+
+        };
+        window.onload = init;
+
+    })(jQuery);
+
+</script>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>-->
+                <!--</button>-->
+                <!--<h1 class="modal-title">KẾT QUẢ !</h1>-->
+            </div>
+            <div class="modal-body" id="modal_body">
+                <video width="100%" controls id="player">
+                    <source id="source" src="mov_bbb.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                </video>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+
+</script>
+</body>
+</html>
